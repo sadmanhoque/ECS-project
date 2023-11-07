@@ -70,3 +70,10 @@ resource "aws_iam_user_policy" "lb_ro" {
 output "secret" {
   value = aws_iam_access_key.lb.encrypted_secret
 }*/
+
+#Setting up codedeploy for ECS task updates
+
+#Create a codedeploy application
+#Create an IAM role for deployments
+#Create deployments
+#https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-ecs-ecr-codedeploy.html
