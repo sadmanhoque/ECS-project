@@ -42,38 +42,13 @@ resource "aws_iam_group" "deployers" {
   path = "/users/"
 }
 
-#IAM user for deploying now
-/*resource "aws_iam_access_key" "lb" {
-  user    = aws_iam_user.lb.name
-  pgp_key = "keybase:some_person_that_exists"
-}
+#The manual parts of the pipeline:
+/*
 
-resource "aws_iam_user" "lb" {
-  name = "loadbalancer"
-  path = "/system/"
-}
+-Adding ECS access policy to the deployer user group.
 
-data "aws_iam_policy_document" "lb_ro" {
-  statement {
-    effect    = "Allow"
-    actions   = ["ec2:Describe*"]
-    resources = ["*"]
-  }
-}
+-Creating Github-actions user, adding that to the deployer user group.
 
-resource "aws_iam_user_policy" "lb_ro" {
-  name   = "test"
-  user   = aws_iam_user.lb.name
-  policy = data.aws_iam_policy_document.lb_ro.json
-}
+-Get the IAM access credentials for this user and add them to Github repo as secrets for github actions.
 
-output "secret" {
-  value = aws_iam_access_key.lb.encrypted_secret
-}*/
-
-#Setting up codedeploy for ECS task updates
-
-#Create a codedeploy application
-#Create an IAM role for deployments
-#Create deployments
-#https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-ecs-ecr-codedeploy.html
+*/
