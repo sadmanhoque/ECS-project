@@ -42,6 +42,7 @@ resource "aws_iam_group" "deployers" {
   path = "/users/"
 }
 
+
 #The manual parts of the pipeline:
 /*
 

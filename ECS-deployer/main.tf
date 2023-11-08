@@ -1,8 +1,4 @@
 #Creating the ECR repo first
-#Commenting this out for now because when I shut down everything for the night it deletes the repo and
-#its images so in the monring I also need to make a bogus change to the server to trigger a deployment
-#to the new ECR repo again
-
 resource "aws_ecr_repository" "my_first_ecr_repo" {
   name = "my-first-ecr-repo" # Naming my repository
 }
