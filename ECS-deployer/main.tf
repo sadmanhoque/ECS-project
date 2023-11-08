@@ -1,3 +1,8 @@
+#Creating the ECR repo first
+#Commenting this out for now because when I shut down everything for the night it deletes the repo and
+#its images so in the monring I also need to make a bogus change to the server to trigger a deployment
+#to the new ECR repo again
+
 resource "aws_ecr_repository" "my_first_ecr_repo" {
   name = "my-first-ecr-repo" # Naming my repository
 }
@@ -71,9 +76,13 @@ resource "aws_ecs_service" "my_first_service" {
   cluster         = "${aws_ecs_cluster.my_cluster.id}"             # Referencing our created Cluster
   task_definition = "${aws_ecs_task_definition.my_first_task.arn}" # Referencing the task our service will spin up
   launch_type     = "FARGATE"
-  desired_count   = 3 # Setting the number of containers we want deployed to 3
+  desired_count   = 2 # Setting the number of containers we want deployed to 3
 
-    load_balancer {
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+
+  load_balancer {
     target_group_arn = "${aws_lb_target_group.target_group.arn}" # Referencing our target group
     container_name   = "${aws_ecs_task_definition.my_first_task.family}"
     container_port   = 3000 # Specifying the container port
@@ -123,6 +132,12 @@ resource "aws_security_group" "load_balancer_security_group" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] # Allowing traffic in from all sources
   }
+    ingress {
+    from_port   = 8080 # Allowing traffic in from port 80
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Allowing traffic in from all sources
+  }
 
   egress {
     from_port   = 0 # Allowing any incoming port
@@ -132,7 +147,7 @@ resource "aws_security_group" "load_balancer_security_group" {
   }
 }
 
-#Target Group and Listener for our ALB
+#Target Group pair and Listener for our ALB
 resource "aws_lb_target_group" "target_group" {
   name        = "target-group"
   port        = 80
