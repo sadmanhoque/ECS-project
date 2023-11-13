@@ -18,4 +18,4 @@ This is the main terraform script for deploying a docker image based application
 
 ### sample-node-project
 
-The name is very self explanatory, this can be used for quickly testing the services deployed by the ECS-deployer. However, to test the pipeline tools deployed by CICD-deployer, this would need to be in another repo, which also exists, I made this before thinking that far. The other repo has the same name as this dir "sample-node-project", even though it's actually a react app.
+The name is very self explanatory, this can be used for quickly testing the services deployed by the ECS-deployer. However, to test the pipeline tools deployed by CICD-deployer, this would need to be in another repo, which also exists, I made this for testing. The other repo is: https://github.com/sadmanhoque/sample-node-project.
